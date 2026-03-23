@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>DATA SUAS</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+h1 {
+  color: #2c3e50;
+}
+
+input {
+  padding: 10px;
+  width: 300px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.card {
+  background: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card a {
+  display: inline-block;
+  margin-top: 10px;
+  color: white;
+  background: #3498db;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<h1>📊 DATA SUAS - Sistema de Legislação</h1>
+
+<input type="text" id="busca" placeholder="Buscar legislação...">
+
+<div id="lista"></div>
+
+<script>
+
+// 🔥 BANCO DE DADOS EMBUTIDO
+const dados = [
+  {
+    titulo: "Lei Orgânica da Assistência Social - LOAS",
+    tipo: "Lei",
+    numero: "8.742/1993",
+    orgao: "Congresso Nacional",
+    ano: 1993,
+    link: "https://www.planalto.gov.br/ccivil_03/leis/l8742.htm"
+  },
+  {
+    titulo: "Política Nacional de Assistência Social - PNAS",
+    tipo: "Política",
+    numero: "2004",
+    orgao: "CNAS",
+    ano: 2004,
+    link: "https://www.mds.gov.br/webarquivos/publicacao/assistencia_social/Normativas/PNAS2004.pdf"
+  },
+  {
+    titulo: "NOB SUAS",
+    tipo: "Resolução",
+    numero: "33/2012",
+    orgao: "CNAS",
+    ano: 2012,
+    link: "https://www.mds.gov.br/webarquivos/publicacao/assistencia_social/Normativas/NOBSUAS2012.pdf"
+  }
+];
+
+// 🔎 FUNÇÃO DE EXIBIÇÃO
+function mostrar(lista) {
+  const div = document.getElementById('lista');
+  div.innerHTML = '';
+
+  lista.forEach(item => {
+    div.innerHTML += `
+      <div class="card">
+        <h3>${item.titulo}</h3>
+        <p>${item.tipo} - ${item.numero}</p>
+        <p>${item.orgao} | ${item.ano}</p>
+        <a href="${item.link}" target="_blank">Acessar</a>
+      </div>
+    `;
+  });
+}
+
+// 🔍 BUSCA
+document.getElementById('busca').addEventListener('input', e => {
+  const valor = e.target.value.toLowerCase();
+
+  const filtrado = dados.filter(item =>
+    item.titulo.toLowerCase().includes(valor)
+  );
+
+  mostrar(filtrado);
+});
+
+// INICIAR
+mostrar(dados);
+
+</script>
+
+</body>
+</html>
